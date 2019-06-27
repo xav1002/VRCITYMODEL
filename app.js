@@ -63,8 +63,8 @@ var animated = true;
 
 const controller = document.querySelector('#controller');
 console.log(controller);
-controller.addEventListener('buttondown', function() {
-    dancingPerson.pause();
+controller.addEventListener('buttondown', function(e) {
+    camera.DOCUMENT_POSITION_CONTAINED_BY.y += 400;
 })
 
 console.log(document.querySelector('a-entity[dancing]').object3DMap);
