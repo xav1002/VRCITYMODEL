@@ -6,9 +6,9 @@ AFRAME.registerComponent('red-cube', {
             height: '10',
             depth: '10'
         })
-        // this.el.setAttribute('material', {
-        //     color: 'red'
-        // })
+        this.el.setAttribute('material', {
+            color: 'red'
+        })
     }
 })
 
@@ -49,3 +49,23 @@ AFRAME.registerComponent('dancing', {
     }
 })
 
+AFRAME.registerComponent('change-color-on-hover', {
+    schema: {
+      color: {default: 'red'}
+    },
+
+    init: function () {
+      var data = this.data;
+      var el = this.el;  // <a-box>
+      this.switch = true;
+      var defaultColor = el.getAttribute('material').color;
+
+      el.addEventListener('axismove', function () {
+        el.setAttribute('color', data.color);
+      });
+
+      el.addEventListener('buttonup', function () {
+        el.setAttribute('color', defaultColor);
+      });
+    }
+  });

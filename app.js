@@ -69,5 +69,9 @@ controller.addEventListener('mousemove', function(e) {
     console.log(e);
 });
 
+cabin.addEventListener('gamepadbuttondown', function(e) {
+    console.log(e);
+})
+
 console.log(document.querySelector('a-entity[dancing]').object3DMap);
 console.log(Gamepad);
