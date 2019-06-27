@@ -30,7 +30,7 @@ scene.appendChild(dancingPerson);
 var dancingPerson2 = document.querySelector('a-entity[dancing]');
 var animated = true;
 
-cabin.addEventListener('click', function() {
+cabin.addEventListener('click', function(e) {
     if(animated) {
         dancingPerson.pause();
         dancingPerson2.pause();
@@ -42,6 +42,8 @@ cabin.addEventListener('click', function() {
         cabin.play();
         animated = true;
     }
+
+    console.log(e);
 })
 // window.addEventListener('click', function() {
 //     cabin.setAttribute('animation', {
@@ -63,7 +65,7 @@ cabin.addEventListener('click', function() {
 
 const controller = document.querySelector('#controller');
 console.log(controller);
-controller.addEventListener('buttondown', function(e) {
+controller.addEventListener('keydown', function(e) {
     camera.position.y += 400;
 });
 
