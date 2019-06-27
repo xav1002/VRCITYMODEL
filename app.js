@@ -30,19 +30,19 @@ scene.appendChild(dancingPerson);
 var dancingPerson2 = document.querySelector('a-entity[dancing]');
 var animated = true;
 
-// cabin.addEventListener('click', function() {
-//     if(animated) {
-//         dancingPerson.pause();
-//         dancingPerson2.pause();
-//         cabin.pause()
-//         animated = false;
-//     } else {
-//         dancingPerson.play();
-//         dancingPerson2.play();
-//         cabin.play();
-//         animated = true;
-//     }
-// })
+cabin.addEventListener('click', function() {
+    if(animated) {
+        dancingPerson.pause();
+        dancingPerson2.pause();
+        cabin.pause()
+        animated = false;
+    } else {
+        dancingPerson.play();
+        dancingPerson2.play();
+        cabin.play();
+        animated = true;
+    }
+})
 // window.addEventListener('click', function() {
 //     cabin.setAttribute('animation', {
 //         property: 'rotation',
@@ -64,8 +64,8 @@ var animated = true;
 const controller = document.querySelector('#controller');
 console.log(controller);
 controller.addEventListener('buttondown', function(e) {
-    camera.DOCUMENT_POSITION_CONTAINED_BY.y += 400;
-})
+    camera.position.y += 400;
+});
 
 console.log(document.querySelector('a-entity[dancing]').object3DMap);
 console.log(Gamepad);
