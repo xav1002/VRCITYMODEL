@@ -33,6 +33,9 @@
             </a-entity>
             <a-entity id="controller" tracked-controls="controller: 0; idPrefix: OpenVR"></a-entity>
             <a-entity animation-mixer dancing position="-5 0 -10"></a-entity>
+            <a-entity red-cube position="-30 0 -30" color="#4CC3D9"
+                event-set__enter="_event: mouseenter; color: #8FF7FF"
+                event-set__leave="_event: mouseleave; color: #4CC3D9"></a-entity>
         </a-scene>
 
         <script src="app.js"></script>

@@ -6,9 +6,9 @@ AFRAME.registerComponent('red-cube', {
             height: '10',
             depth: '10'
         })
-        this.el.setAttribute('material', {
-            color: 'red'
-        })
+        // this.el.setAttribute('material', {
+        //     color: 'red'
+        // })
     }
 })
 

@@ -65,8 +65,8 @@ cabin.addEventListener('click', function(e) {
 
 const controller = document.querySelector('#controller');
 console.log(controller);
-controller.addEventListener('keydown', function(e) {
-    camera.position.y += 400;
+controller.addEventListener('mousemove', function(e) {
+    console.log(e);
 });
 
 console.log(document.querySelector('a-entity[dancing]').object3DMap);
