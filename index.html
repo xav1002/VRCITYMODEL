@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <title>VR City Model</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+            <script src="./aframe-master/dist/aframe-master.js"></script>
+    </head>
+    <body>
+        <script src="./GLTFLoader.js"></script>
+        <script src="./aframe-extras-master/dist/aframe-extras.js"></script>
+        <script src="./aframe-extras-master/src/loaders/animation-mixer.js"></script>
+        <script src="./aframe-master/src/components/look-controls.js"></script>
+
+        <script src="components.js"></script>
+
+        <a-scene>
+            <a-assets>
+                <img id="grasstexture" src="assets/grassTexture.jpg">
+                <img id="wood" src="assets/WoodCabinDif.jpg">
+                <img id="woodcabinnm" src="assets/WoodCabinNM.jpg">
+                <img id="woodcabinsm" src="assets/WoodCabinSM.jpg">
+                <a-asset-item id="woodencabinobj" src="assets/Wooden_Cabin.obj"></a-asset-item>
+                <a-asset-item id="woodencabinmtl" src="assets/Wooden_Cabin.mtl"></a-asset-item>
+                <a-asset-item id="dancing" src="assets/sambaDancing.gltf"></a-asset-item>
+            </a-assets>
+            <a-entity position=" 0 0 0">
+            <a-camera id="camera" look-controls rotation>
+                <a-cursor fuse="true"></a-cursor>
+            </a-camera>
+            </a-entity>
+            <a-entity id="controller" tracked-controls="controller: 0; idPrefix: OpenVR"></a-entity>
+            <a-entity animation-mixer dancing position="-5 0 -10"></a-entity>
+        </a-scene>
+
+        <script src="app.js"></script>
+
+    </body>
+</html>
