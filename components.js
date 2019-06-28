@@ -5,10 +5,11 @@ AFRAME.registerComponent('red-cube', {
             width: '10',
             height: '10',
             depth: '10'
-        })
+        });
         this.el.setAttribute('material', {
             color: 'red'
-        })
+        });
+        this.el.emit('test');
     }
 })
 
@@ -40,6 +41,9 @@ AFRAME.registerComponent('cabin', {
             easing: 'linear',
             loop: 'true'
         });
+        this.el.addEventListener('test', function() {
+            console.log('components');
+        })
     }
 })
 

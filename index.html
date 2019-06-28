@@ -7,15 +7,17 @@
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="stylesheet" type="text/css" media="screen" href="main.css">
             <script src="./aframe-master/dist/aframe-master.js"></script>
+
     </head>
     <body>
         <script src="./GLTFLoader.js"></script>
         <script src="./aframe-extras-master/dist/aframe-extras.js"></script>
         <script src="./aframe-extras-master/src/loaders/animation-mixer.js"></script>
         <script src="./aframe-master/src/components/look-controls.js"></script>
-        <script src="./aframe-extras-master/src/controls/gamepad-controls.js"></script>
-
+        <!-- <script src="./aframe-extras-master/src/controls/gamepad-controls.js"></script> -->
+        <!-- <script src="./aframe-gamepad-controls-master/dist/aframe-gamepad-controls.js"></script> -->
         <script src="components.js"></script>
+
 
         <a-scene>
             <a-assets>
@@ -32,20 +34,28 @@
                 <a-cursor></a-cursor>
             </a-camera>
             </a-entity>
-            <a-entity id="controller" tracked-controls="controller: 0"></a-entity>
+            <!-- <a-entity id="controller" tracked-controls="controller: 0"></a-entity> -->
             <a-entity animation-mixer dancing position="-5 0 -10"></a-entity>
-            <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"
+            <!-- <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"
             event-set__enter="_event: mouseenter; color: #8FF7FF"
-            event-set__leave="_event: mouseleave; color: #4CC3D9"></a-box>
+            event-set__leave="_event: mouseleave; color: #4CC3D9"></a-box> -->
             <a-box color="#EF2D5E" position="0 1 -4" change-color-on-hover="color: blue"></a-box>
         </a-scene>
 
         <script>
             window.addEventListener("gamepadconnected", function(e) {
-  console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
-    e.gamepad.index, e.gamepad.id,
-    e.gamepad.buttons.length, e.gamepad.axes.length);
-});
+                console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
+                e.gamepad.index, e.gamepad.id,
+                e.gamepad.buttons.length, e.gamepad.axes.length);
+                console.log(Gamepad);
+            });
+
+            // window.addEventListener('gamepadbuttonup', function(e) {
+            //     console.log('works');
+            //     console.log(e);
+            //     console.log(navigator);
+            // });
+
         </script>
 
         <script src="app.js"></script>

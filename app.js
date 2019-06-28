@@ -1,9 +1,8 @@
 const scene = document.querySelector('a-scene');
-
 const camera = document.querySelector('#camera');
+const cursor = document.querySelector('a-cursor');
 
 var cabin = document.createElement('a-entity');
-console.log(cabin);
 cabin.setAttribute('cabin', true);
 cabin.setAttribute('position', '0 -3 -18');
 scene.appendChild(cabin);
@@ -16,7 +15,6 @@ scene.appendChild(ground);
 var cube = document.createElement('a-entity');
 cube.setAttribute('red-cube', true);
 cube.setAttribute('position', '25 0 -30');
-console.log(cube);
 scene.appendChild(cube);
 
 var dancingPerson = document.createElement('a-entity');
@@ -28,50 +26,49 @@ dancingPerson.setAttribute('position', '5 0 -10');
 scene.appendChild(dancingPerson);
 
 var dancingPerson2 = document.querySelector('a-entity[dancing]');
-var animated = true;
 
-cabin.addEventListener('click', function(e) {
-    if(animated) {
+/**
+ * target certain objects with events dispatched from another object? 
+ * bubbling: true? */
+
+let cabinEvent = new Event('cabinevent');
+
+var playing = true;
+
+cabin.addEventListener('cabinevent', function() {
+    if(playing) {
+        cabin.pause();
         dancingPerson.pause();
         dancingPerson2.pause();
-        cabin.pause()
-        animated = false;
+        playing = false;
     } else {
+        cabin.play();
         dancingPerson.play();
         dancingPerson2.play();
-        cabin.play();
-        animated = true;
+        playing = true;
     }
-
-    console.log(e);
-})
-// window.addEventListener('click', function() {
-//     cabin.setAttribute('animation', {
-//         property: 'rotation',
-//         to: '0 360 0',
-//         dur: '1500',
-//         easing: 'linear',
-//         loop: 'true'
-//     });
-//     cube.setAttribute('animation', {
-//         property: 'components.material.material.color',
-//         type: 'color',
-//         from: 'red',
-//         to: 'green',
-//         dur: '5000',
-//     });
-// });
-
-
-const controller = document.querySelector('#controller');
-console.log(controller);
-controller.addEventListener('mousemove', function(e) {
-    console.log(e);
 });
 
-cabin.addEventListener('gamepadbuttondown', function(e) {
-    console.log(e);
-})
+window.addEventListener('gamepadbuttondown', function(e) {
+    var index = e.detail.index;
+    if (index === 0) {
+        camera.setAttribute('position', '0 0 0');
+    } else if (index === 1) {
+        camera.setAttribute('position', '0 10 0');
+    } else if (index === 4) {
+        cabin.dispatchEvent(cabinEvent);
+        console.log('cabinevent works');
+    } else if (index === 10) {
+        cube.setAttribute('material', {
+            color: 'blue'
+        });
+    } else if (index=== 11) {
+        cube.setAttribute('material', {
+            color: 'red'
+        });
+    }
+    console.log(index);
+});
 
 console.log(document.querySelector('a-entity[dancing]').object3DMap);
 console.log(Gamepad);
