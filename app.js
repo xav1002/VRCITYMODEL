@@ -32,10 +32,14 @@ var dancingPerson2 = document.querySelector('a-entity[dancing]');
  * bubbling: true? */
 
 let cabinEvent = new Event('cabinevent');
+let raycasterEvent = new Event('raycasterevent');
+
+var raycaster = new THREE.Raycaster();
+console.log(raycaster);
 
 var playing = true;
 
-cabin.addEventListener('cabinevent', function() {
+cabin.addEventListener('click', function() {
     if(playing) {
         cabin.pause();
         dancingPerson.pause();
@@ -48,6 +52,8 @@ cabin.addEventListener('cabinevent', function() {
         playing = true;
     }
 });
+
+console.log(cursor);
 
 window.addEventListener('gamepadbuttondown', function(e) {
     var index = e.detail.index;
@@ -69,6 +75,10 @@ window.addEventListener('gamepadbuttondown', function(e) {
     }
     console.log(index);
 });
+
+window.addEventListener('gamepadaxischange', function() {
+    console.log('change');
+})
 
 console.log(document.querySelector('a-entity[dancing]').object3DMap);
 console.log(Gamepad);
