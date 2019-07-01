@@ -43,14 +43,6 @@
             <a-box color="#EF2D5E" position="0 1 -4" change-color-on-hover="color: blue"></a-box>
         </a-scene>
 
-        <script>
-            window.addEventListener("gamepadconnected", function(e) {
-                console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
-                e.gamepad.index, e.gamepad.id,
-                e.gamepad.buttons.length, e.gamepad.axes.length);
-            });
-        </script>
-
         <script src="app.js"></script>
 
     </body>

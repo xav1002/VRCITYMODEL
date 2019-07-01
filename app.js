@@ -39,7 +39,15 @@ console.log(raycaster);
 
 var playing = true;
 
-cabin.addEventListener('click', function() {
+bottomPointer = (e) => {
+    console.log(e);
+}
+
+topPointer = (e) => {
+    console.log(e);
+}
+
+functionC = (e) => {
     if(playing) {
         cabin.pause();
         dancingPerson.pause();
@@ -51,36 +59,22 @@ cabin.addEventListener('click', function() {
         dancingPerson2.play();
         playing = true;
     }
-});
+}
 
-console.log(cursor);
+functionB = (e) => {
+    console.log(e);
+}
+functionA = (e) => {
+    console.log(e);
+}
+
+window.addEventListener('0event', bottomPointer);
+window.addEventListener('1event', topPointer);
+window.addEventListener('4event', functionC);
+window.addEventListener('10event', functionB);
+window.addEventListener('11event', functionA);
 
 // raycaster.intersects - if the object is intersected, then have that object dispatch a custom event (without bubbling) and have that same object listen for that event
-
-// window.addEventListener('gamepadbuttondown', function(e) {
-//     var index = e.detail.index;
-//     if (index === 0) {
-//         camera.setAttribute('position', '0 0 0');
-//     } else if (index === 1) {
-//         camera.setAttribute('position', '0 10 0');
-//     } else if (index === 4) {
-//         cabin.dispatchEvent(cabinEvent);
-//         console.log('cabinevent works');
-//     } else if (index === 10) {
-//         cube.setAttribute('material', {
-//             color: 'blue'
-//         });
-//     } else if (index=== 11) {
-//         cube.setAttribute('material', {
-//             color: 'red'
-//         });
-//     }
-//     console.log(index);
-// });
-
-window.addEventListener('axismove', function() {
-    console.log('change');
-})
 
 console.log(document.querySelector('a-entity[dancing]').object3DMap);
 console.log(Gamepad);

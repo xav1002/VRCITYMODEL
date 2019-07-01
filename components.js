@@ -9,7 +9,6 @@ AFRAME.registerComponent('red-cube', {
         this.el.setAttribute('material', {
             color: 'red'
         });
-        this.el.emit('test');
     }
 })
 
@@ -72,113 +71,139 @@ AFRAME.registerComponent('change-color-on-hover', {
         el.setAttribute('color', defaultColor);
       });
     }
-  });
+});
 
-  AFRAME.registerComponent('iscontroller', {
-      init: function() {
-          console.log(this.el.object3D.position);
-          console.log(this);
+/**
+ * Heavily copied from Don McCurdy's aframe-gamepad-controls
+ */
 
-        //   console.log(this.getGamepad());
+AFRAME.registerComponent('iscontroller', {
+    init: function() {
+        console.log(this);
 
-          var data = this.data;
-          data.acceleration = 65;
-          data.controller = 0;
-          data.easing = 20;
-          data.flyEnabled = false;
-          data.lookEnabled = true;
+        this.buttons;
 
-          const game = this;
-          
-          var controller;
+        var data = this.data;
+        data.acceleration = 65;
+        data.controller = 0;
+        data.easing = 20;
+        data.flyEnabled = false;
+        data.lookEnabled = true;
 
-          window.addEventListener('gamepadconnected', function(e) {
-            return controller = navigator.getGamepads()[0];
-          });
+        const game = this;
+        
+        this.controllerReady = false;
 
-          console.log(controller);
+        prepController = () => {
+            console.log(navigator.getGamepads()[0]);
+            console.log(navigator.getGamepads()[0].axes);
+            console.log(navigator.getGamepads()[0].buttons);
+            return this.controller = navigator.getGamepads()[0], this.controllerReady = true;
+        }
 
-          window.addEventListener('keydown', function(e) {
-            switch ( e.keyCode ) {
+        window.addEventListener('gamepadconnected', prepController);
 
-                case 38: // up
-                case 87: // w
-                        game.moveForward = true;
-                        // console.log(game.moveForward);
-                        break;
-    
-                case 37: // left
-                case 65: // a
-                        game.moveLeft = true;
-                        break;
-    
-                case 40: // down
-                case 83: // d
-                        game.moveBackward = true;
-                        break;
-    
-                case 39: // right
-                case 68: // d
-                        game.moveRight = true;
-                        break;
-    
-                case 32: // up
-                        game.moveUp = true;
-                        break;
-    
-                case 16: // down
-                        game.moveDown = true;
-                        break;
-                    }
+        console.log(this.controllerReady);
+
+        window.addEventListener('keydown', function(e) {
+        switch ( e.keyCode ) {
+
+            case 38: // up
+            case 87: // w
+                    game.moveForward = true;
+                    // console.log(game.moveForward);
+                    break;
+
+            case 37: // left
+            case 65: // a
+                    game.moveLeft = true;
+                    break;
+
+            case 40: // down
+            case 83: // d
+                    game.moveBackward = true;
+                    break;
+
+            case 39: // right
+            case 68: // d
+                    game.moveRight = true;
+                    break;
+
+            case 32: // up
+                    game.moveUp = true;
+                    break;
+
+            case 16: // down
+                    game.moveDown = true;
+                    break;
+                }
         });
 
         window.addEventListener('keyup', function(e) {
             switch ( e.keyCode ) {
-    
+
                 case 38: // up
                 case 87: // w
                         game.moveForward = false;
                         break;
-    
+
                 case 37: // left
                 case 65: // a
                         game.moveLeft = false;
                         break;
-    
+
                 case 40: // down
                 case 83: // d
                         game.moveBackward = false;
                         break;
-    
+
                 case 39: // right
                 case 68: // d
                         game.moveRight = false;
                         break;
-    
+
                 case 32: // up
                         game.moveUp = false;
                         break;
-    
+
                 case 16: // down
                         game.moveDown = false;
                         break;
                     }
         });
-      },
-      tick: function() {
-          const game = this;
-        if(game.moveForward) {
-            game.el.object3D.translateZ(-2);
-        } else if(game.moveBackward) {
-            game.el.object3D.translateZ(2);
-        } else if(game.moveRight) {
-            game.el.object3D.translateX(2);
-        } else if(game.moveLeft) {
-            game.el.object3D.translateX(-2);
-        } else if(game.moveUp) {
-            game.el.object3D.translateY(2);
-        } else if(game.moveDown) {
-            game.el.object3D.translateY(-2);
+    },
+    tick: function() {
+        const game = this;
+
+        if(game.controllerReady) {
+            game.updateButtons();
+            game.updateJoystick();
+            game.updateMovement();
         }
-      }
-  });
+    },
+    updateJoystick: function() {
+        this.axes = navigator.getGamepads()[0].axes;
+        return new THREE.Vector2(this.axes[0], this.axes[1]);
+    },
+    updateButtons: function() {
+        const game = this;
+        this.buttons = navigator.getGamepads()[0].buttons;
+        for(var i = 0; i < 14; i += 1) {
+        if(this.buttons[i].pressed) {
+            game.testEvent = new Event(`${i}event`, {bubbles: true, cancelable: true});
+            this.el.dispatchEvent(game.testEvent);
+            }
+        }
+    },
+    updateMovement: function() {
+        const game = this;
+        this.buttons = navigator.getGamepads()[0].buttons;
+        game.el.object3D.translateX(this.updateJoystick().x);
+
+        if(!this.buttons[0].pressed) {
+        game.el.object3D.translateZ(this.updateJoystick().y);
+        } else if(this.buttons[0].pressed) {
+            game.el.object3D.translateY(-this.updateJoystick().y);
+        }
+    }
+});

@@ -315,6 +315,7 @@
 	    var gamepad = this.getGamepad();
 	    if (this.data.enabled && gamepad) {
 
+
 	      // Fire DOM events for button state changes.
 	      for (var i = 0; i < gamepad.buttons.length; i++) {
 	        if (gamepad.buttons[i].pressed && !this.buttons[i]) {
