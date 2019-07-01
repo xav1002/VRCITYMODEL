@@ -52,7 +52,7 @@
 	    return;
 	  }
 
-	  (AFRAME.aframeCore || AFRAME).registerComponent('gamepad-controls', __webpack_require__(1));
+	  (AFRAME.aframeCore || AFRAME).registerComponent('gamepad-control', __webpack_require__(1));
 
 	}(window.AFRAME));
 
@@ -121,6 +121,11 @@
 	   * Called once when component is attached. Generally for initial setup.
 	   */
 	  init: function () {
+		  const game = this;
+		  window.addEventListener('gamepadconnected', function() {
+			console.log(game);
+		  })
+		  console.log(game);
 	    // Movement
 	    this.velocity = new THREE.Vector3(0, 0, 0);
 	    this.direction = new THREE.Vector3(0, 0, 0);

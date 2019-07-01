@@ -73,3 +73,112 @@ AFRAME.registerComponent('change-color-on-hover', {
       });
     }
   });
+
+  AFRAME.registerComponent('iscontroller', {
+      init: function() {
+          console.log(this.el.object3D.position);
+          console.log(this);
+
+        //   console.log(this.getGamepad());
+
+          var data = this.data;
+          data.acceleration = 65;
+          data.controller = 0;
+          data.easing = 20;
+          data.flyEnabled = false;
+          data.lookEnabled = true;
+
+          const game = this;
+          
+          var controller;
+
+          window.addEventListener('gamepadconnected', function(e) {
+            return controller = navigator.getGamepads()[0];
+          });
+
+          console.log(controller);
+
+          window.addEventListener('keydown', function(e) {
+            switch ( e.keyCode ) {
+
+                case 38: // up
+                case 87: // w
+                        game.moveForward = true;
+                        // console.log(game.moveForward);
+                        break;
+    
+                case 37: // left
+                case 65: // a
+                        game.moveLeft = true;
+                        break;
+    
+                case 40: // down
+                case 83: // d
+                        game.moveBackward = true;
+                        break;
+    
+                case 39: // right
+                case 68: // d
+                        game.moveRight = true;
+                        break;
+    
+                case 32: // up
+                        game.moveUp = true;
+                        break;
+    
+                case 16: // down
+                        game.moveDown = true;
+                        break;
+                    }
+        });
+
+        window.addEventListener('keyup', function(e) {
+            switch ( e.keyCode ) {
+    
+                case 38: // up
+                case 87: // w
+                        game.moveForward = false;
+                        break;
+    
+                case 37: // left
+                case 65: // a
+                        game.moveLeft = false;
+                        break;
+    
+                case 40: // down
+                case 83: // d
+                        game.moveBackward = false;
+                        break;
+    
+                case 39: // right
+                case 68: // d
+                        game.moveRight = false;
+                        break;
+    
+                case 32: // up
+                        game.moveUp = false;
+                        break;
+    
+                case 16: // down
+                        game.moveDown = false;
+                        break;
+                    }
+        });
+      },
+      tick: function() {
+          const game = this;
+        if(game.moveForward) {
+            game.el.object3D.translateZ(-2);
+        } else if(game.moveBackward) {
+            game.el.object3D.translateZ(2);
+        } else if(game.moveRight) {
+            game.el.object3D.translateX(2);
+        } else if(game.moveLeft) {
+            game.el.object3D.translateX(-2);
+        } else if(game.moveUp) {
+            game.el.object3D.translateY(2);
+        } else if(game.moveDown) {
+            game.el.object3D.translateY(-2);
+        }
+      }
+  });

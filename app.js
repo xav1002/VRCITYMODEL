@@ -55,28 +55,30 @@ cabin.addEventListener('click', function() {
 
 console.log(cursor);
 
-window.addEventListener('gamepadbuttondown', function(e) {
-    var index = e.detail.index;
-    if (index === 0) {
-        camera.setAttribute('position', '0 0 0');
-    } else if (index === 1) {
-        camera.setAttribute('position', '0 10 0');
-    } else if (index === 4) {
-        cabin.dispatchEvent(cabinEvent);
-        console.log('cabinevent works');
-    } else if (index === 10) {
-        cube.setAttribute('material', {
-            color: 'blue'
-        });
-    } else if (index=== 11) {
-        cube.setAttribute('material', {
-            color: 'red'
-        });
-    }
-    console.log(index);
-});
+// raycaster.intersects - if the object is intersected, then have that object dispatch a custom event (without bubbling) and have that same object listen for that event
 
-window.addEventListener('gamepadaxischange', function() {
+// window.addEventListener('gamepadbuttondown', function(e) {
+//     var index = e.detail.index;
+//     if (index === 0) {
+//         camera.setAttribute('position', '0 0 0');
+//     } else if (index === 1) {
+//         camera.setAttribute('position', '0 10 0');
+//     } else if (index === 4) {
+//         cabin.dispatchEvent(cabinEvent);
+//         console.log('cabinevent works');
+//     } else if (index === 10) {
+//         cube.setAttribute('material', {
+//             color: 'blue'
+//         });
+//     } else if (index=== 11) {
+//         cube.setAttribute('material', {
+//             color: 'red'
+//         });
+//     }
+//     console.log(index);
+// });
+
+window.addEventListener('axismove', function() {
     console.log('change');
 })
 
