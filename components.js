@@ -77,7 +77,7 @@ AFRAME.registerComponent('change-color-on-hover', {
  * Heavily copied from Don McCurdy's aframe-gamepad-controls
  */
 
-AFRAME.registerComponent('iscontroller', {
+AFRAME.registerComponent('android-controller', {
     init: function() {
         console.log(this);
 
@@ -207,3 +207,98 @@ AFRAME.registerComponent('iscontroller', {
         }
     }
 });
+
+AFRAME.registerComponent('ios-controller', {
+    init: function() {
+        console.log(this);
+
+        prepController = () => {
+            console.log(navigator.getGamepads()[0]);
+            console.log(navigator.getGamepads()[0].axes);
+            console.log(navigator.getGamepads()[0].buttons);
+            return this.controller = navigator.getGamepads()[0], this.controllerReady = true;
+        }
+
+        window.addEventListener('gamepadconnected', prepController);
+
+        const game = this;
+
+        window.addEventListener('keydown', function(e) {
+            this.console.log(e);
+            switch ( e.keyCode ) {
+    
+                case 65: // a, joystick forward
+                        game.moveForward = true;
+                        break;
+    
+                case 88: // x, joystick left
+                        game.moveLeft = true;
+                        break;
+    
+                case 68: // d, joystick backward
+                        game.moveBackward = true;
+                        break;
+    
+                case 87: // w, joystick right
+                        game.moveRight = true;
+                        break;
+    
+                case 79: // o, topbutton
+                        game.moveUp = true;
+                        break;
+    
+                case 76: // l, bottombutton
+                        game.moveDown = true;
+                        break;
+                    }
+            });
+
+            window.addEventListener('keydown', function(e) {
+                switch ( e.keyCode ) {
+    
+                    case 81: // q, joystick forward release
+                            game.moveForward = false;
+                            break;
+    
+                    case 90: // z, joystick left release
+                            game.moveLeft = false;
+                            break;
+    
+                    case 67: // c, joystick backward release
+                            game.moveBackward = false;
+                            break;
+    
+                    case 69: // e, joystick right release
+                            game.moveRight = false;
+                            break;
+    
+                    case 71: // topbutton release
+                            game.moveUp = false;
+                            break;
+    
+                    case 86: // bottombutton release
+                            game.moveDown = false;
+                            break;
+                        }
+            });
+    },
+    tick: function() {
+        this.updatePosition();
+    },
+    updatePosition: function() {
+        const game = this;
+        if(game.moveForward) {
+            this.el.object3D.translateZ(-1);
+        } else if(game.moveBackward) {
+            this.el.object3D.translateZ(1);
+        } else if(game.moveRight) {
+            this.el.object3D.translateX(1);
+        } else if(game.moveLeft) {
+            this.el.object3D.translateX(-1);
+        } else if(game.moveUp) {
+            this.el.object3D.translateY(1);
+        } else if(game.moveDown) {
+            this.el.object3D.translateY(-1);
+        }
+    }
+})
