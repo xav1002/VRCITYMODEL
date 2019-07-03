@@ -190,8 +190,8 @@ AFRAME.registerComponent('android-controller', {
         this.buttons = navigator.getGamepads()[0].buttons;
         for(var i = 0; i < 14; i += 1) {
         if(this.buttons[i].pressed) {
-            game.testEvent = new Event(`${i}event`, {bubbles: true, cancelable: true});
-            this.el.dispatchEvent(game.testEvent);
+            game.newEvent = new Event(`${i}event`, {bubbles: true, cancelable: true});
+            this.el.dispatchEvent(game.newEvent);
             }
         }
     },
@@ -205,6 +205,8 @@ AFRAME.registerComponent('android-controller', {
         } else if(this.buttons[0].pressed) {
             game.el.object3D.translateY(-this.updateJoystick().y);
         }
+
+        console.log(game.el.object3D.position);
     }
 });
 
@@ -212,19 +214,9 @@ AFRAME.registerComponent('ios-controller', {
     init: function() {
         console.log(this);
 
-        prepController = () => {
-            console.log(navigator.getGamepads()[0]);
-            console.log(navigator.getGamepads()[0].axes);
-            console.log(navigator.getGamepads()[0].buttons);
-            return this.controller = navigator.getGamepads()[0], this.controllerReady = true;
-        }
-
-        window.addEventListener('gamepadconnected', prepController);
-
         const game = this;
 
         window.addEventListener('keydown', function(e) {
-            this.console.log(e);
             switch ( e.keyCode ) {
     
                 case 65: // a, joystick forward
@@ -250,40 +242,56 @@ AFRAME.registerComponent('ios-controller', {
                 case 76: // l, bottombutton
                         game.moveDown = true;
                         break;
+
+                case 81: // q, joystick forward release
+                        game.moveForward = false;
+                        break;
+
+                case 90: // z, joystick left release
+                        game.moveLeft = false;
+                        break;
+
+                case 67: // c, joystick backward release
+                        game.moveBackward = false;
+                        break;
+
+                case 69: // e, joystick right release
+                        game.moveRight = false;
+                        break;
+
+                case 71: // topbutton release
+                        game.moveUp = false;
+                        break;
+
+                case 86: // bottombutton release
+                        game.moveDown = false;
+                        break;
+
+                        /**
+                         * Can also emit event on release
+                         */
+
+                case 89: // C button push
+                        var newEvent4 = new Event('4event', {bubbles: true, cancelable: true});
+                        game.el.dispatchEvent(newEvent4);
+
+                case 72: // B button push
+                        var newEvent10 = new Event('10event', {bubbles: true, cancelable: true});
+                        game.el.dispatchEvent(newEvent10);
+
+                case 89: // A button push
+                        var newEvent11 = new Event('11event', {bubbles: true, cancelable: true});
+                        game.el.dispatchEvent(newEvent11);
                     }
             });
 
-            window.addEventListener('keydown', function(e) {
-                switch ( e.keyCode ) {
-    
-                    case 81: // q, joystick forward release
-                            game.moveForward = false;
-                            break;
-    
-                    case 90: // z, joystick left release
-                            game.moveLeft = false;
-                            break;
-    
-                    case 67: // c, joystick backward release
-                            game.moveBackward = false;
-                            break;
-    
-                    case 69: // e, joystick right release
-                            game.moveRight = false;
-                            break;
-    
-                    case 71: // topbutton release
-                            game.moveUp = false;
-                            break;
-    
-                    case 86: // bottombutton release
-                            game.moveDown = false;
-                            break;
-                        }
-            });
+            window.addEventListener('4event', function() {
+                console.log(game.el);
+            })
     },
     tick: function() {
         this.updatePosition();
+        console.log(this.el.object3D.position);
     },
     updatePosition: function() {
         const game = this;
