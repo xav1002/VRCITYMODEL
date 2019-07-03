@@ -206,13 +206,14 @@ AFRAME.registerComponent('android-controller', {
             game.el.object3D.translateY(-this.updateJoystick().y);
         }
 
-        console.log(game.el.object3D.position);
     }
 });
 
 AFRAME.registerComponent('ios-controller', {
     init: function() {
         console.log(this);
+
+        this.container = document.querySelector('#container');
 
         const game = this;
 
@@ -291,7 +292,6 @@ AFRAME.registerComponent('ios-controller', {
     },
     tick: function() {
         this.updatePosition();
-        console.log(this.el.object3D.position);
     },
     updatePosition: function() {
         const game = this;
@@ -308,5 +308,6 @@ AFRAME.registerComponent('ios-controller', {
         } else if(game.moveDown) {
             this.el.object3D.translateY(-1);
         }
+        container.position = camera.position.clone();
     }
 })

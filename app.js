@@ -31,9 +31,6 @@ var dancingPerson2 = document.querySelector('a-entity[dancing]');
  * target certain objects with events dispatched from another object? 
  * bubbling: true? */
 
-let cabinEvent = new Event('cabinevent');
-let raycasterEvent = new Event('raycasterevent');
-
 var raycaster = new THREE.Raycaster();
 console.log(raycaster);
 
