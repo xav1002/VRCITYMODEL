@@ -308,6 +308,6 @@ AFRAME.registerComponent('ios-controller', {
         } else if(game.moveDown) {
             this.el.object3D.translateY(-1);
         }
-        container.position = camera.position.clone();
+        this.container.position = this.el.object3D.position.clone();
     }
 })
