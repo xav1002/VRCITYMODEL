@@ -75,6 +75,8 @@ AFRAME.registerComponent('change-color-on-hover', {
 
 /**
  * Heavily copied from Don McCurdy's aframe-gamepad-controls
+ * 
+ * scene.isIOS?
  */
 
 AFRAME.registerComponent('android-controller', {
@@ -298,10 +300,10 @@ AFRAME.registerComponent('ios-controller', {
     updatePosition: function() {
         const game = this;
         this.el.object3D.getWorldDirection(game.directionVector);
-        this.el.object3D.parent.position.x = this.el.object3D.position.x;
-        this.el.object3D.parent.position.y = this.el.object3D.position.y;
-        this.el.object3D.parent.position.z = this.el.object3D.position.z;
-        // console.log(this.el.object3D.parent.rotation, this.el.object3D.parent.quaternion);
+        this.el.object3D.parent.children[0].position.x = this.el.object3D.position.x;
+        this.el.object3D.parent.children[0].position.y = this.el.object3D.position.y;
+        this.el.object3D.parent.children[0].position.z = this.el.object3D.position.z;
+        // console.log(this.el.object3D.parent.position);
         if(game.moveForward) {
             // this.el.object3D.parent.translateZ(-1);
             this.el.object3D.translateZ(-1);
