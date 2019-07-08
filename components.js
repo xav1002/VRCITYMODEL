@@ -298,28 +298,28 @@ AFRAME.registerComponent('ios-controller', {
     updatePosition: function() {
         const game = this;
         this.el.object3D.getWorldDirection(game.directionVector);
-        this.el.object3D.parent.rotation._x = game.directionVector.x;
-        this.el.object3D.parent.rotation._y = game.directionVector.y;
-        this.el.object3D.parent.rotation._z = game.directionVector.z;
-        // console.log(this.el.object3D.parent.el.object3D);
+        this.el.object3D.parent.position.x = this.el.object3D.position.x;
+        this.el.object3D.parent.position.y = this.el.object3D.position.y;
+        this.el.object3D.parent.position.z = this.el.object3D.position.z;
+        // console.log(this.el.object3D.parent.rotation, this.el.object3D.parent.quaternion);
         if(game.moveForward) {
-            this.el.object3D.parent.el.object3D.translateZ(-1);
-            // this.el.object3D.translateZ(-1);
+            // this.el.object3D.parent.translateZ(-1);
+            this.el.object3D.translateZ(-1);
         } else if(game.moveBackward) {
-            this.el.object3D.parent.el.object3D.translateZ(1);
-            // this.el.object3D.translateZ(1);
+            // this.el.object3D.parent.translateZ(1);
+            this.el.object3D.translateZ(1);
         } else if(game.moveRight) {
-            this.el.object3D.parent.el.object3D.translateX(1);
-            // this.el.object3D.translateX(1);
+            // this.el.object3D.parent.translateX(1);
+            this.el.object3D.translateX(1);
         } else if(game.moveLeft) {
-            this.el.object3D.parent.el.object3D.translateX(-1);
-            // this.el.object3D.translateX(-1);
+            // this.el.object3D.parent.translateX(-1);
+            this.el.object3D.translateX(-1);
         } else if(game.moveUp) {
-            this.el.object3D.parent.el.object3D.translateY(1);
-            // this.el.object3D.translateY(1);
+            // this.el.object3D.parent.translateY(1);
+            this.el.object3D.translateY(1);
         } else if(game.moveDown) {
-            this.el.object3D.parent.el.object3D.translateY(-1);
-            // this.el.object3D.translateY(-1);    
+            // this.el.object3D.parent.translateY(-1);
+            this.el.object3D.translateY(-1);    
         }
     }
 })
