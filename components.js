@@ -300,10 +300,11 @@ AFRAME.registerComponent('ios-controller', {
     updatePosition: function() {
         const game = this;
         this.el.object3D.getWorldDirection(game.directionVector);
-        this.el.object3D.parent.children[0].position.x = this.el.object3D.position.x;
-        this.el.object3D.parent.children[0].position.y = this.el.object3D.position.y;
-        this.el.object3D.parent.children[0].position.z = this.el.object3D.position.z;
-        // console.log(this.el.object3D.parent.position);
+        this.el.object3D.children[1].position.x = this.el.object3D.position.x;
+        this.el.object3D.children[1].position.y = this.el.object3D.position.y;
+        this.el.object3D.children[1].position.z = this.el.object3D.position.z;
+        // console.log(this.el.object3D.parent.position, this.el.object3D.position);
+        // console.log(this.el.object3D);
         if(game.moveForward) {
             // this.el.object3D.parent.translateZ(-1);
             this.el.object3D.translateZ(-1);

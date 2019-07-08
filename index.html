@@ -31,13 +31,11 @@
                 <a-asset-item id="dancing" src="assets/sambaDancing.gltf"></a-asset-item>
             </a-assets>
 
-            <a-entity id="container">
-                <a-camera 
+            <a-camera 
                 look-controls 
                 ios-controller>
                 <a-cursor></a-cursor>
             </a-camera>
-            </a-entity>
 
             <a-entity animation-mixer dancing position="-5 0 -10"></a-entity>
             <a-box color="#EF2D5E" position="0 1 -4" change-color-on-hover="color: blue"></a-box>
