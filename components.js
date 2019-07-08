@@ -296,18 +296,24 @@ AFRAME.registerComponent('ios-controller', {
     updatePosition: function() {
         const game = this;
         if(game.moveForward) {
-            this.el.object3D.translateZ(-1);
+            this.el.object3D.parent.el.object3D.translateZ(-1);
+            // this.el.object3D.translateZ(-1);
         } else if(game.moveBackward) {
-            this.el.object3D.translateZ(1);
+            this.el.object3D.parent.el.object3D.translateZ(1);
+            // this.el.object3D.translateZ(1);
         } else if(game.moveRight) {
-            this.el.object3D.translateX(1);
+            this.el.object3D.parent.el.object3D.translateX(1);
+            // this.el.object3D.translateX(1);
         } else if(game.moveLeft) {
-            this.el.object3D.translateX(-1);
+            this.el.object3D.parent.el.object3D.translateX(-1);
+            // this.el.object3D.translateX(-1);
         } else if(game.moveUp) {
-            this.el.object3D.translateY(1);
+            this.el.object3D.parent.el.object3D.translateY(1);
+            // this.el.object3D.translateY(1);
         } else if(game.moveDown) {
-            this.el.object3D.translateY(-1);
+            this.el.object3D.parent.el.object3D.translateY(-1);
+            // this.el.object3D.translateY(-1);        
         }
-        this.container.position = this.el.object3D.position.clone();
+        console.log(this.el.object3D.position);
     }
 })
