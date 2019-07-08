@@ -219,6 +219,13 @@ AFRAME.registerComponent('ios-controller', {
 
         const game = this;
 
+        this.moveForward = false;
+        this.moveBackward = false;
+        this.moveLeft = false;
+        this.moveRight = false;
+        this.moveUp = false;
+        this.moveDown = false;
+
         this.directionVector = new THREE.Vector3();
 
         window.addEventListener('keydown', function(e) {
@@ -307,6 +314,8 @@ AFRAME.registerComponent('ios-controller', {
             // console.log(child.position, child.parent.position);
         });
 
+
+        // Reliant on parent
         this.el.object3D.children[0].position.x = this.el.object3D.position.x;
         this.el.object3D.children[0].position.y = this.el.object3D.position.y;
         this.el.object3D.children[0].position.z = this.el.object3D.position.z;
@@ -315,27 +324,45 @@ AFRAME.registerComponent('ios-controller', {
         this.el.object3D.children[1].position.y = this.el.object3D.position.y;
         this.el.object3D.children[1].position.z = this.el.object3D.position.z;
 
+        // Reliant on 1st child
+        // this.el.object3D.position.x = this.el.object3D.children[0].position.x;
+        // this.el.object3D.position.y = this.el.object3D.children[0].position.y;
+        // this.el.object3D.position.z = this.el.object3D.children[0].position.z;
+
+        // this.el.object3D.children[1].position.x = this.el.object3D.children[0].position.x;
+        // this.el.object3D.children[1].position.y = this.el.object3D.children[0].position.y;
+        // this.el.object3D.children[1].position.z = this.el.object3D.children[0].position.z;
+
+        // Reliant on 2nd child
+        // this.el.object3D.position.x = this.el.object3D.children[1].position.x;
+        // this.el.object3D.position.y = this.el.object3D.children[1].position.y;
+        // this.el.object3D.position.z = this.el.object3D.children[1].position.z;
+
+        // this.el.object3D.children[0].position.x = this.el.object3D.children[1].x;
+        // this.el.object3D.children[0].position.y = this.el.object3D.children[1].y;
+        // this.el.object3D.children[0].position.z = this.el.object3D.children[1].z;
+
         // console.log(this);
         // console.log(this.el.object3D.children[1].rotation, this.el.object3D.rotation);
-        // console.log(this.el.object3D.children[1]);
+        // console.log(this.el.object3D.children[0]);
         if(game.moveForward) {
             // this.el.object3D.children[1].translateZ(-1);
             this.el.object3D.translateZ(-1);
         } else if(game.moveBackward) {
-            // this.el.object3D.parent.translateZ(1);
+            // this.el.object3D.children[1].translateZ(1);
             this.el.object3D.translateZ(1);
         } else if(game.moveRight) {
-            // this.el.object3D.parent.translateX(1);
+            // this.el.object3D.children[1].translateX(1);
             this.el.object3D.translateX(1);
         } else if(game.moveLeft) {
-            // this.el.object3D.parent.translateX(-1);
+            // this.el.object3D.children[1].translateX(-1);
             this.el.object3D.translateX(-1);
         } else if(game.moveUp) {
-            // this.el.object3D.parent.translateY(1);
+            // this.el.object3D.children[1].translateY(1);
             this.el.object3D.translateY(1);
         } else if(game.moveDown) {
-            // this.el.object3D.parent.translateY(-1);
-            this.el.object3D.translateY(-1);    
+            // this.el.object3D.children[1].translateY(-1);
+            this.el.object3D.translateY(-1); 
         }
     }
 })
