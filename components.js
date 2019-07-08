@@ -217,6 +217,8 @@ AFRAME.registerComponent('ios-controller', {
 
         const game = this;
 
+        this.directionVector = new THREE.Vector3();
+
         window.addEventListener('keydown', function(e) {
             switch ( e.keyCode ) {
     
@@ -295,6 +297,10 @@ AFRAME.registerComponent('ios-controller', {
     },
     updatePosition: function() {
         const game = this;
+        this.el.object3D.getWorldDirection(game.directionVector);
+        // console.log(game.directionVector);
+        this.el.object3D.parent.el.object3D.rotation = game.directionVector;
+        // console.log(this.el.object3D.parent.el.object3D.rotation);
         if(game.moveForward) {
             this.el.object3D.parent.el.object3D.translateZ(-1);
             // this.el.object3D.translateZ(-1);
@@ -314,6 +320,5 @@ AFRAME.registerComponent('ios-controller', {
             this.el.object3D.parent.el.object3D.translateY(-1);
             // this.el.object3D.translateY(-1);        
         }
-        console.log(this.el.object3D.position);
     }
 })
