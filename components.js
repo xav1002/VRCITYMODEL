@@ -298,9 +298,10 @@ AFRAME.registerComponent('ios-controller', {
     updatePosition: function() {
         const game = this;
         this.el.object3D.getWorldDirection(game.directionVector);
-        // console.log(game.directionVector);
-        this.el.object3D.parent.el.object3D.rotation = game.directionVector;
-        // console.log(this.el.object3D.parent.el.object3D.rotation);
+        this.el.object3D.parent.el.object3D.rotation._x = game.directionVector.x;
+        this.el.object3D.parent.el.object3D.rotation._y = game.directionVector.y;
+        this.el.object3D.parent.el.object3D.rotation._z = game.directionVector.z;
+        console.log(this.el.object3D.parent.el.object3D.rotation);
         if(game.moveForward) {
             this.el.object3D.parent.el.object3D.translateZ(-1);
             // this.el.object3D.translateZ(-1);
