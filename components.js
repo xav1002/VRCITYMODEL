@@ -324,6 +324,10 @@ AFRAME.registerComponent('ios-controller', {
         this.el.object3D.children[1].position.y = this.el.object3D.position.y;
         this.el.object3D.children[1].position.z = this.el.object3D.position.z;
 
+        this.el.object3D.parent.position.x = this.el.object3D.position.x;
+        this.el.object3D.parent.position.y = this.el.object3D.position.y;
+        this.el.object3D.parent.position.z = this.el.object3D.position.z;
+
         // Reliant on 1st child
         // this.el.object3D.position.x = this.el.object3D.children[0].position.x;
         // this.el.object3D.position.y = this.el.object3D.children[0].position.y;
@@ -344,7 +348,7 @@ AFRAME.registerComponent('ios-controller', {
 
         // console.log(this);
         // console.log(this.el.object3D.children[1].rotation, this.el.object3D.rotation);
-        // console.log(this.el.object3D.children[0]);
+        // console.log(this.el.object3D.parent);
         if(game.moveForward) {
             // this.el.object3D.children[1].translateZ(-1);
             this.el.object3D.translateZ(-1);
